@@ -1,18 +1,21 @@
 # MERN Stack Basic Template
 
 ### Frontend Setup:
-bash`
+
+```bash
 cd client
 bun i
 bun run dev
 goto http://localhost:5173
-`
+```
 
+<br>
 
 ### Backend Setup:
-bash`
+
+```bash
 cd server
 bun i
 bun run dev
-goto http://localhost:8000
-`
+goto http://localhost:5000
+```
