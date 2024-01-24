@@ -3,7 +3,16 @@ import mongoose from "mongoose";
 
 // Load environment variables
 const PORT = process.env.PORT || 8000;
-const DB_URL = process.env.DB_URL || "mongodb://127.0.0.1:27017/express-ts";
+const DB_URL = process.env.DB_URL;
+
+if (!DB_URL) {
+  console.log("No DB_URL provided");
+  process.exit(1);
+}
+
+if (DB_URL == "RUN WITHOUT DB") {
+  console.log("Running without DB");
+}
 
 const app = express();
 
@@ -12,16 +21,23 @@ app.get("/", (req, res) => {
 });
 
 // Connect to DB and start server
-mongoose
-  .connect(DB_URL)
-  .then(() => {
-    console.log("Connected to DB");
 
-    app.listen(PORT, () => {
-      console.log(`Server listening on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.log("Error connecting to DB");
-    console.log("err: ", err);
+if (DB_URL == "RUN WITHOUT DB") {
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
   });
+} else {
+  mongoose
+    .connect(DB_URL)
+    .then(() => {
+      console.log("Connected to DB");
+
+      app.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.log("Error connecting to DB");
+      console.log("err: ", err);
+    });
+}
