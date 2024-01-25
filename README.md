@@ -6,7 +6,7 @@
 cd client
 bun i
 bun run dev
-goto http://localhost:5173
+goto http://localhost:1337
 ```
 
 <br>
